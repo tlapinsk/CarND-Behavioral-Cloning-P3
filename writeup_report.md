@@ -58,7 +58,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 4. Appropriate Training Data
 
-I recorded many data sets (3 in fact) before I starting yielding great results. Recording, re-recording, and deleting images was probably the most time consuming part of this project. And in fact, it could have been a lot easier had I stumbled upon Kevin La Ra's [post](https://discussions.udacity.com/t/help-stuck-just-cant-get-a-full-lap-on-the-track/240144/6?u=tim.lapinskas) earlier on.
+I recorded many data sets (3 in fact) before I starting yielding great results. Recording, re-recording, and deleting images was probably the most time consuming part of this project. And in fact, it could have been a lot easier had I stumbled upon Kevin La Ra's [post](https://discussions.udacity.com/t/help-stuck-just-cant-get-a-full-lap-on-the-track/240144/6) earlier on.
 
 His advice to use 2 recordings (less is more) ended up being some of the best advice that I received. In addition Mohan's [blog post](https://medium.com/@mohankarthik/cloning-a-car-to-mimic-human-driving-5c2f7e8d8aff) led me to start training the model purely with the Udacity data set from the start (found [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip)).
 
@@ -96,7 +96,8 @@ Here is a visualization of the architecture:
 
 To capture good driving behavior, I settled on starting with the Udacity data set ([found here](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip)). Center lane xamples of the data set found below:
 
-
+![alt text](https://github.com/tlapinsk/CarND-Behavioral-Cloning-P3/blob/master/writeup_images/center_2016_12_01_13_30_48_287.jpg?raw=true "Udacity Center")
+![alt text](https://github.com/tlapinsk/CarND-Behavioral-Cloning-P3/blob/master/writeup_images/center_2016_12_01_13_45_53_138.jpg?raw=true "Udacity Center")
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover from the edges of the track. Check out a few images below:
 
@@ -104,21 +105,17 @@ I then recorded the vehicle recovering from the left side and right sides of the
 ![alt text](https://github.com/tlapinsk/CarND-Behavioral-Cloning-P3/blob/master/writeup_images/left_2017_09_10_13_10_01_376.jpg?raw=true "Left")
 ![alt text](https://github.com/tlapinsk/CarND-Behavioral-Cloning-P3/blob/master/writeup_images/right_2017_09_10_13_10_01_376.jpg?raw=true "Right")
 
-Then I repeated this process on track two in order to get more data points.
+To augment the data sat, I also flipped images and angles thinking that this would help the model generalize. 
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+After the collection process, I had X number of data points. I then preprocessed this data by employing filtering and cropping. This was noted earlier in this writeup and also in many of the forum posts that I came across. 
 
-![alt text][image6]
-![alt text][image7]
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-Etc ....
+I also created a generator, which proved very helpful. Early on in my testing, I ran into memory errors and Udacity's generator example helped immensely to efficiently train my model. 
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 3 as evidenced by my loss graph. Again, this was chosen in help by a [forum response](https://discussions.udacity.com/t/number-of-epochs/228034/5) by Subodh Malgonde. See below for a picture of my loss graph:
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
 ## Reflection
 - It would be more interesting to come back to this project at some point and see if a combination of my now adequate training data and these pre-processing techniques would make the car perform even better.
