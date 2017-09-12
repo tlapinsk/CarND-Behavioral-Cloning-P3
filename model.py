@@ -1,8 +1,3 @@
-
-# coding: utf-8
-
-# In[24]:
-
 import csv
 import os
 import cv2
@@ -24,9 +19,6 @@ with open('/home/carnd/data/driving_log.csv') as csvfile:
 
 del samples[0]
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
-
-
-# In[25]:
 
 def generator(samples, batch_size=32):
     num_samples = len(samples)
@@ -83,9 +75,7 @@ def generator(samples, batch_size=32):
 train_generator = generator(train_samples, batch_size=32)
 validation_generator = generator(validation_samples, batch_size=32)
 
-
-# In[26]:
-
+# import Keras and necessary add-ons
 import keras
 from keras.models import Sequential
 from keras import optimizers
@@ -93,9 +83,7 @@ from keras.layers import Flatten, Dense, Lambda, Activation, Dropout
 from keras.layers import Conv2D, MaxPooling2D, Cropping2D, Reshape
 from keras.callbacks import History 
 
-
-# row, col, ch = 80, 320, 3  # Trimmed image format
-
+# Nvidia architecture
 model = Sequential()
 model.add(Lambda(lambda x: x/127.5 - 1., input_shape=(160, 320, 3)))  # Normalize data
 model.add(Cropping2D(cropping=((50,20),(0,0))))  # Crop images
@@ -111,14 +99,17 @@ model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 
+# Compile and train the model
 model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
 history = model.fit_generator(train_generator, steps_per_epoch=
             len(train_samples)/32, validation_data=validation_generator,
             validation_steps=len(validation_samples)/32, epochs=3)
 
+# Save the model
 model.save('model.h5')
 print("Model saved")
 
+# Print Keras history keys
 print()
 print(history.history.keys())
 
@@ -130,4 +121,3 @@ plt.ylabel('MSE Loss')
 plt.xlabel('Epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
 plt.show()
-
