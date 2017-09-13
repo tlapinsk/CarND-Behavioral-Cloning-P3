@@ -112,7 +112,23 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 #### Final Model Architecture
 
-As noted above, I employed the Nvidia architecture. A visualization of the architecture can be seen above.
+As noted above, I used the Nvidia architecture as a starting point. A visualization of the architecture can be seen above. Below presents the network in a more appropriate format:
+
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Normalize + Input         		| Normalize: (x/127.5 -1) & Input: 160x320x3 							| 
+| Cropping         		| 50 pixels off the top, 20 pixels off the bottom						|
+| Resize     	| 64x64 pixels	|
+| Convolution2d    	| 24 channels, 5x5 Conv, 2x2 stride, activation=relu 	|
+| Convolution2d    	| 36 channels, 5x5 Conv, 2x2 stride, activation=relu 	|
+| Convolution2d    	| 48 channels, 5x5 Conv, 2x2 stride, activation=relu 	|
+| Convolution2d    	| 64 channels, 3x3 Conv, 2x2 stride, activation=relu 	|
+| Convolution2d    	| 64 channels, 3x3 Conv, 2x2 stride, activation=relu 	|
+| Flatten					|	Outputs 262,144											|
+| Fully connected		| Outputs 100        									|
+| Fully connected		| Outputs 50        									|
+| Fully connected		| Outputs 10        									|
+| Fully connected		| Outputs 1        									|
 
 #### Creation of the Training Set & Training Process
 

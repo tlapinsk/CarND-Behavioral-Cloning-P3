@@ -88,7 +88,7 @@ model = Sequential()
 model.add(Lambda(lambda x: x/127.5 - 1., input_shape=(160, 320, 3)))  # Normalize data
 model.add(Cropping2D(cropping=((50,20),(0,0))))  # Crop images
 model.add(Lambda(resize))  # Resize to 64x64
-model.add(Conv2D(24, (5, 5), strides=(2, 2), input_shape=(160, 320, 3), activation="relu"))
+model.add(Conv2D(24, (5, 5), strides=(2, 2), activation="relu"))
 model.add(Conv2D(36, (5, 5), strides=(2, 2), activation="relu"))
 model.add(Conv2D(48, (5, 5), strides=(2, 2), activation="relu"))
 model.add(Conv2D(64, (3, 3), activation="relu"))
@@ -113,7 +113,7 @@ print("Model saved")
 print()
 print(history.history.keys())
 
-# Summarize history for loss
+# Summarize loss history
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('Loss Plot')
